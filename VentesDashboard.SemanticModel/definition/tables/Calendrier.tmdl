@@ -1,0 +1,73 @@
+table Calendrier
+	lineageTag: ba6e4bac-c570-4ac4-942f-67292aea042c
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: Short Date
+		lineageTag: f95ecf36-df75-4e9b-af8e-383068e28464
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column annee = YEAR('Calendrier'[Date])
+		formatString: 0
+		lineageTag: 8efc3126-eebc-4f4f-94bb-f1264445f616
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column mois = MONTH('Calendrier'[Date])
+		formatString: 0
+		lineageTag: 1f126b27-977e-48c0-a7d1-8a3f0c881ac2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre = QUARTER('Calendrier'[Date])
+		formatString: 0
+		lineageTag: 5d79a725-4682-4aed-a1ac-16ce248669ad
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column mois_n = FORMAT('Calendrier'[Date], "mmm", "fr-FR")
+		lineageTag: ea107c63-f7db-4920-8298-914450ec1a77
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column jour = DAY('Calendrier'[Date])
+		formatString: 0
+		lineageTag: 3b569864-dff4-44f8-8382-6c1486ce07c1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'annee Hierarchy'
+		lineageTag: 1dfb1f32-77d9-4358-a7ac-f8c0a072df4c
+
+		level annee
+			lineageTag: d1fe8912-7325-43e7-ab4a-a87e2e7e1cce
+			column: annee
+
+		level Trimestre
+			lineageTag: 0d91786b-ff97-455f-9cd0-f2de097e95b7
+			column: Trimestre
+
+		level mois_n
+			lineageTag: dbe7972e-66d8-413a-a517-b104a55e178b
+			column: mois_n
+
+		level Date
+			lineageTag: 3f7e9a87-beaf-4c4c-9020-c268ce58941d
+			column: Date
+
+	partition Calendrier = calculated
+		mode: import
+		source = CALENDARAUTO()
+
+	annotation PBI_Id = 9b0d4fd5bf114f83b7eec2671a34544d
+

@@ -1,0 +1,172 @@
+table Client
+	lineageTag: 63c14e79-5a13-4d56-832c-227fc81225fc
+
+	column ClientId
+		dataType: string
+		lineageTag: 80d7a468-bf1b-4ee2-bec6-4415d0f11182
+		summarizeBy: none
+		sourceColumn: ClientId
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomSociete
+		dataType: string
+		lineageTag: c45355e7-5ba0-49c0-a5e9-ad658eada691
+		summarizeBy: none
+		sourceColumn: NomSociete
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom complet client'
+		dataType: string
+		lineageTag: dcf0ccd4-c889-460a-828b-52f2c2212845
+		summarizeBy: none
+		sourceColumn: Nom complet client
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContactTitre
+		dataType: string
+		lineageTag: 2a855294-6b84-448c-9152-e46729f418a6
+		summarizeBy: none
+		sourceColumn: ContactTitre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Adresse
+		dataType: string
+		lineageTag: 91dc1a18-2b99-407c-b652-f1daf5d9b82f
+		summarizeBy: none
+		sourceColumn: Adresse
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ville
+		dataType: string
+		lineageTag: 046e8089-2253-44d6-8a3b-96fc6e1d6cc4
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: Ville
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: 9adbf622-e9e5-4a8f-a22b-7789dae00577
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodePostal
+		dataType: string
+		lineageTag: 9ddbafd8-71ce-4912-8fca-e462959f83d0
+		summarizeBy: none
+		sourceColumn: CodePostal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pays
+		dataType: string
+		lineageTag: 1cb0fc8b-67dc-4912-8aa6-01c13f3e7e45
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	column Telephone
+		dataType: string
+		lineageTag: e76b8bba-88c1-446c-9e51-e7a9103f568a
+		summarizeBy: none
+		sourceColumn: Telephone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fax
+		dataType: string
+		lineageTag: a452478c-687c-4da1-8756-b19b87b552e8
+		summarizeBy: none
+		sourceColumn: Fax
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Adresse complète'
+		dataType: string
+		lineageTag: b791ac4c-c4b5-45b9-97c4-0135bf5f696b
+		summarizeBy: none
+		sourceColumn: Adresse complète
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Segment Client' = ```
+			
+			-- Remplace 'Commande'[Montant] par le champ exact du chiffre d'affaires dans ta table de faits
+			VAR CASociete = 
+			    CALCULATE(
+			        SUM(LigneCommandes[CA]), 
+			        ALLEXCEPT('Client', 'Client'[NomSociete])
+			    )
+			
+			-- Table des CA par société active
+			VAR TableCA = 
+			    SUMMARIZE(
+			        ALL('Client'), 
+			        'Client'[NomSociete], 
+			        "TotalCA", CALCULATE(SUM(LigneCommandes[CA]))
+			    )
+			
+			VAR TableCAActif = FILTER(TableCA, [TotalCA] > 0)
+			
+			-- Calcul des seuils globaux fixes
+			VAR P50 = PERCENTILEX.INC(TableCAActif, [TotalCA], 0.50)
+			VAR P80 = PERCENTILEX.INC(TableCAActif, [TotalCA], 0.80)
+			VAR P95 = PERCENTILEX.INC(TableCAActif, [TotalCA], 0.95)
+			
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(CASociete) || CASociete = 0, "Inactif",
+			    CASociete < P50, "Occasionnel",
+			    CASociete < P80, "Fréquent",
+			    CASociete < P95, "VIP",
+			    "TOP"
+			)
+			
+			
+			
+			
+			
+			```
+		lineageTag: 055c2f32-3a21-47b3-b068-ed62bc1fdc7d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Pays Hierarchy'
+		lineageTag: ac8ea43d-1b34-4ae3-9316-8223dcd17112
+
+		level Pays
+			lineageTag: fa723e47-fa5a-47e9-a993-712dff6cb631
+			column: Pays
+
+		level Ville
+			lineageTag: adc6efa0-3ae2-4fef-b733-057a04cde0cf
+			column: Ville
+
+	partition Client = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(".\SQLEXPRESS", "Ventes"),
+				    dbo_Client = Source{[Schema="dbo",Item="Client"]}[Data],
+				    #"Inserted Merged Column" = Table.AddColumn(dbo_Client, "Adresse complète", each Text.Combine({[Adresse], [Ville], [CodePostal], [Pays]}, ","), type text),
+				    #"Renamed Columns" = Table.RenameColumns(#"Inserted Merged Column",{{"ContactNom", "Nom complet client"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

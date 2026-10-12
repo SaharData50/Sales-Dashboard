@@ -1,0 +1,111 @@
+table Fournisseur
+	lineageTag: d50cef57-cfba-486e-86b9-af285e0cdfc9
+
+	column FournisseurId
+		dataType: int64
+		formatString: 0
+		lineageTag: 556b5909-b790-4f88-8307-f22354a590e5
+		summarizeBy: none
+		sourceColumn: FournisseurId
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomSociete
+		dataType: string
+		lineageTag: 58938553-08c7-48b7-8ae8-1f8f73268cd7
+		summarizeBy: none
+		sourceColumn: NomSociete
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContactNom
+		dataType: string
+		lineageTag: 4408cbbe-3379-4d94-939e-9399ff4b1237
+		summarizeBy: none
+		sourceColumn: ContactNom
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContactTitre
+		dataType: string
+		lineageTag: d45e533d-4515-4799-9d13-ecf9e9c748f3
+		summarizeBy: none
+		sourceColumn: ContactTitre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Adresse
+		dataType: string
+		lineageTag: 9a555c9a-dbaa-4bb9-8340-f7c6ad162348
+		summarizeBy: none
+		sourceColumn: Adresse
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ville
+		dataType: string
+		lineageTag: 81081334-7565-45cf-a2f8-453c1c569d75
+		summarizeBy: none
+		sourceColumn: Ville
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: b6b18af6-8c5e-4055-81e7-2de8d266db66
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodePostal
+		dataType: string
+		lineageTag: 36f40afc-eeba-4385-9cf9-56ee65f928d5
+		summarizeBy: none
+		sourceColumn: CodePostal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pays
+		dataType: string
+		lineageTag: 4dd4f4ea-676c-432c-95dd-548e1923ca1e
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	column Telephone
+		dataType: string
+		lineageTag: 378d6cfc-62a2-4a85-aa3f-593b1ecadd40
+		summarizeBy: none
+		sourceColumn: Telephone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fax
+		dataType: string
+		lineageTag: 7192924e-fcdb-4a44-87e9-52a5b293ba61
+		summarizeBy: none
+		sourceColumn: Fax
+
+		annotation SummarizationSetBy = Automatic
+
+	column SiteWeb
+		dataType: string
+		lineageTag: 433de7b1-a69c-43ff-bf0f-0b3d75094fbb
+		summarizeBy: none
+		sourceColumn: SiteWeb
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fournisseur = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(".\SQLEXPRESS", "Ventes"),
+				    dbo_Fournisseur = Source{[Schema="dbo",Item="Fournisseur"]}[Data]
+				in
+				    dbo_Fournisseur
+
+	annotation PBI_ResultType = Table
+

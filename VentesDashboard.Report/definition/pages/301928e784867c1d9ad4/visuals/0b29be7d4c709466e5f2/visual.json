@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "0b29be7d4c709466e5f2",
+  "position": {
+    "x": 624,
+    "y": 400,
+    "z": 4000,
+    "height": 256,
+    "width": 656,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Days"
+                    }
+                  },
+                  "Property": "Value"
+                }
+              },
+              "queryRef": "Days.Value",
+              "nativeQueryRef": "Value",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Client"
+                        }
+                      },
+                      "Hierarchy": "Pays Hierarchy"
+                    }
+                  },
+                  "Level": "Pays"
+                }
+              },
+              "queryRef": "Client.Pays Hierarchy.Pays",
+              "nativeQueryRef": "Pays Hierarchy Pays",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commande"
+                    }
+                  },
+                  "Property": "%Commande"
+                }
+              },
+              "queryRef": "Commande.%Commande",
+              "nativeQueryRef": "%Commande"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Commandes par Pays/Jour'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

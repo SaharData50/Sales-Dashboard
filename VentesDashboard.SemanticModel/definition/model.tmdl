@@ -1,0 +1,30 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Commande","LigneCommandes","Client","Produit","Fournisseur","Categorie","Employe","_Mesures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Commande
+ref table DateTableTemplate_fe34de9d-78b5-447b-8b33-0e1b57f0b231
+ref table LigneCommandes
+ref table Client
+ref table Produit
+ref table Fournisseur
+ref table Categorie
+ref table Employe
+ref table LocalDateTable_407e5bc8-3978-4805-ac87-4688e2cb1bf4
+ref table LocalDateTable_cc2076a3-6fb4-46bd-8652-be1c15906305
+ref table Calendrier
+ref table _Mesures
+ref table Days
+
+ref cultureInfo en-US
+

@@ -1,0 +1,150 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 563.35639799999967,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 981.44526083146434,
+            "y": 587.94308331546222
+          },
+          "nodeIndex": "Categorie",
+          "nodeLineageTag": "fe0ad15d-1eac-4ffc-818d-d47831ba22b2",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 481.58163097209649
+          },
+          "nodeIndex": "Client",
+          "nodeLineageTag": "63c14e79-5a13-4d56-832c-227fc81225fc",
+          "size": {
+            "height": 308.857805,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 339.9074780570794,
+            "y": 281.33204973491968
+          },
+          "nodeIndex": "Commande",
+          "nodeLineageTag": "e38d9782-4797-4df3-a325-6902b457e7cb",
+          "size": {
+            "height": 272,
+            "width": 292.46151299999997
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 50.039220121948574,
+            "y": -50
+          },
+          "nodeIndex": "Employe",
+          "nodeLineageTag": "ede9b571-4b04-4ff2-ae6b-751c6f713621",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1035.7351847251934,
+            "y": 15.25344976612223
+          },
+          "nodeIndex": "Fournisseur",
+          "nodeLineageTag": "d50cef57-cfba-486e-86b9-af285e0cdfc9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 626.13352933938836,
+            "y": 586.59105805995773
+          },
+          "nodeIndex": "LigneCommandes",
+          "nodeLineageTag": "2a3c0435-b6f5-409d-bfc3-c3245bd54947",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 745.84408781914044,
+            "y": 232.21795622182646
+          },
+          "nodeIndex": "Produit",
+          "nodeLineageTag": "b739e9ce-e14d-4573-95fc-885319f5d2ce",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 569.96858972519385,
+            "y": 0
+          },
+          "nodeIndex": "Calendrier",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1269.7351847251934,
+            "y": 366.29552902997887
+          },
+          "nodeIndex": "_Mesures",
+          "nodeLineageTag": "9edd0a0f-f3cf-443a-b2ae-d2b0a6f9274b",
+          "size": {
+            "height": 350.2469789999999,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1503.7351847251934,
+            "y": 320.21971798604824
+          },
+          "nodeIndex": "Days",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 56.447393005377776,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
