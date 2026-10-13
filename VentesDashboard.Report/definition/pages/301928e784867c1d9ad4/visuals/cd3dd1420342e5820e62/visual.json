@@ -1,0 +1,163 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "cd3dd1420342e5820e62",
+  "position": {
+    "x": 0,
+    "y": 400,
+    "z": 3000,
+    "height": 256,
+    "width": 592,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Client"
+                    }
+                  },
+                  "Property": "Pays"
+                }
+              },
+              "queryRef": "Client.Pays",
+              "nativeQueryRef": "First Pays",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Arithmetic": {
+                  "Left": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Mesures"
+                        }
+                      },
+                      "Property": "Nb Commandes"
+                    }
+                  },
+                  "Right": {
+                    "ScopedEval": {
+                      "Expression": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Mesures"
+                            }
+                          },
+                          "Property": "Nb Commandes"
+                        }
+                      },
+                      "Scope": []
+                    }
+                  },
+                  "Operator": 3
+                }
+              },
+              "queryRef": "_Mesures.Nb Commandes",
+              "nativeQueryRef": "% Commandes",
+              "displayName": "% Commandes"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Commande"
+                        }
+                      },
+                      "Property": "DelaiExpedition"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(Commande.DelaiExpedition)",
+              "nativeQueryRef": "Moyenne Délai livraison",
+              "displayName": "Moyenne Délai livraison"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commande"
+                    }
+                  },
+                  "Property": "%Commande7jours"
+                }
+              },
+              "queryRef": "Commande.pourCommande",
+              "nativeQueryRef": "%Commande7jours"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Commande"
+                    }
+                  },
+                  "Property": "%Commande"
+                }
+              },
+              "queryRef": "Commande.pourCommandes7jours",
+              "nativeQueryRef": "%Commande"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Arithmetic": {
+                "Left": {
+                  "Measure": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "_Mesures"
+                      }
+                    },
+                    "Property": "Nb Commandes"
+                  }
+                },
+                "Right": {
+                  "ScopedEval": {
+                    "Expression": {
+                      "Measure": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "_Mesures"
+                          }
+                        },
+                        "Property": "Nb Commandes"
+                      }
+                    },
+                    "Scope": []
+                  }
+                },
+                "Operator": 3
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

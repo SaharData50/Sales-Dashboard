@@ -1,0 +1,41 @@
+table Categorie
+	lineageTag: fe0ad15d-1eac-4ffc-818d-d47831ba22b2
+
+	column CategorieId
+		dataType: int64
+		formatString: 0
+		lineageTag: bde17bb6-0397-4004-bd78-274f63993e36
+		summarizeBy: none
+		sourceColumn: CategorieId
+
+		annotation SummarizationSetBy = Automatic
+
+	column NomCategorie
+		dataType: string
+		lineageTag: 33bbf0dc-06d3-4f08-a959-b8a14314e450
+		summarizeBy: none
+		sourceColumn: NomCategorie
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: a46da3bb-58ea-4dcc-86b0-89493e86f225
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Categorie = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(".\SQLEXPRESS", "Ventes"),
+				    dbo_Categorie = Source{[Schema="dbo",Item="Categorie"]}[Data]
+				in
+				    dbo_Categorie
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

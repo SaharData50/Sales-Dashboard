@@ -1,0 +1,28 @@
+# ==========================================
+# Power BI - Paramètres locaux & Données
+# ==========================================
+# Exclut les paramètres de connexion spécifiques à la machine locale
+**/.pbi/localSettings.json
+
+# Exclut le fichier de cache du modèle sémantique (évite la fuite de données)
+**/.pbi/cache.abf
+
+# ==========================================
+# Fichiers temporaires & Sauvegardes
+# ==========================================
+# Exclut les fichiers de sauvegarde générés automatiquement
+*.bak
+*~
+
+# ==========================================
+# Fichiers système (OS)
+# ==========================================
+# Exclut les fichiers d'indexation invisibles de macOS et Windows
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Configuration de l'éditeur de code
+# ==========================================
+# Exclut les préférences et extensions locales de Visual Studio Code
+.vscode/

@@ -1,0 +1,13 @@
+role regional_acces
+	modelPermission: read
+
+	tablePermission Client = ```
+			Client[Pays] IN 
+			CALCULATETABLE(
+			    VALUES(securityTable_sales[Pays]),
+			    securityTable_sales[user_name] = USERPRINCIPALNAME()
+			)
+			```
+
+	annotation PBI_Id = ed690f4c1f774a4e8daf17edd444647a
+

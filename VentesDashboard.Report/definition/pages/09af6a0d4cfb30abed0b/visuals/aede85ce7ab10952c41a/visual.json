@@ -1,0 +1,67 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "aede85ce7ab10952c41a",
+  "position": {
+    "x": 656,
+    "y": 96,
+    "z": 3000,
+    "height": 112,
+    "width": 240,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Commande"
+                        }
+                      },
+                      "Property": "DelaiExpedition"
+                    }
+                  },
+                  "Function": 1
+                }
+              },
+              "queryRef": "Sum(Commande.DelaiExpedition)",
+              "nativeQueryRef": "Délai moyen d'expédition",
+              "displayName": "Délai moyen d'expédition"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Commande"
+                      }
+                    },
+                    "Property": "DelaiExpedition"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

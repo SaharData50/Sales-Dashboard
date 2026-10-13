@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "3fad836c6157501c96e1",
+  "displayName": "Analyse d'employés",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "pageBinding": {
+    "name": "4a8825e73e97803eb6bf",
+    "type": "Default",
+    "parameters": []
+  }
+}

@@ -1,0 +1,167 @@
+table _Mesures
+	lineageTag: 9edd0a0f-f3cf-443a-b2ae-d2b0a6f9274b
+
+	measure 'CA Total' = sum(LigneCommandes[CA])
+		lineageTag: 686c7130-3291-4710-b6f1-976ad3b88462
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nb Commandes' = DISTINCTCOUNT(Commande[CommandeId])
+		formatString: 0
+		lineageTag: b3937d5a-c1a4-4af3-a56e-76faa8ff6ada
+
+	measure 'Nb Clients' = DISTINCTCOUNT(Client[ClientId])
+		formatString: 0
+		lineageTag: b053fe5a-11f1-4425-a36c-78d909fcfb35
+
+	measure 'Panier Moyen' = DIVIDE([CA Total],[Nb Commandes],0)
+		lineageTag: 6cc0367b-02c4-48d1-9cbf-1a2e8143004d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CA N-1' = CALCULATE([CA Total],SAMEPERIODLASTYEAR(Calendrier[Date]))
+		formatString: 0
+		lineageTag: 10cf2435-e48c-44a8-8478-c7500f40e672
+
+	measure '% Croissance' = DIVIDE([CA Total]-[CA N-1],[CA N-1],0)
+		lineageTag: 1698fc25-3fc2-488c-ba62-dc109a8faaf8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top Employé' = ```
+			
+			VAR _Top =
+			    TOPN ( 1, VALUES ( Employe[Nom complet employé]), [CA Total], DESC )
+			RETURN
+			    IF ( NOT ISBLANK ( [CA Total] ), MAXX ( _Top, Employe[Nom complet employé]) )
+			
+			```
+		lineageTag: 4d811fda-70f9-4f03-986a-960216b198c5
+
+	measure 'Top Produit' =
+			
+			VAR _Top =
+			    TOPN ( 1, VALUES ( Produit[NomProduit] ), [CA Total], DESC )
+			RETURN
+			    IF ( NOT ISBLANK ( [CA Total] ), MAXX ( _Top, Produit[NomProduit]) )
+		lineageTag: a12b0c10-c4b9-43df-aae5-09d91d83f9ba
+
+	measure 'CA Top Employé' =
+			
+			MAXX ( VALUES ( Employe[Nom complet employé]), [CA Total] )
+		lineageTag: f31125d1-00e1-411c-9dc7-9c445abaeab1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CA Top Produit' =
+			
+			MAXX ( VALUES ( Produit[NomProduit] ), [CA Total] )
+		lineageTag: 12443336-bb17-400f-b463-5fcc491e679c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nb Produits Vendus' = sum(Produit[QuantiteEnCommande])
+		formatString: 0
+		lineageTag: e1bad035-2898-4fd0-99f8-3539ec87a258
+
+	measure 'Nouveaux clients' =
+			
+			VAR ClientsPeriode = VALUES(Commande[ClientId])
+			RETURN
+			COUNTROWS(
+			    FILTER(
+			        ClientsPeriode,
+			        VAR PremierAchatGlobal = CALCULATE(MIN(Commande[DateCommande]), ALL(Commande))
+			        VAR PremierAchatPeriode = MIN(Commande[DateCommande])
+			        RETURN PremierAchatGlobal = PremierAchatPeriode
+			    )
+			)
+		formatString: 0
+		lineageTag: 30d70eea-2b88-4543-b7a4-759ca4d3b97e
+
+	measure 'Clients Actifs' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(Commande[ClientId]),
+			    NOT ISBLANK(Commande[CommandeId])
+			)
+		formatString: 0
+		lineageTag: b9e3ec0f-daaf-4efe-a72f-467a74135fd1
+
+	measure 'CA Top Client' = ```
+			
+			VAR _Top =
+			    TOPN ( 1, VALUES ( Client[NomSociete]), [CA Total], DESC )
+			RETURN
+			    IF ( NOT ISBLANK ( [CA Total] ), MAXX ( _Top, Client[NomSociete]) )
+			
+			```
+		lineageTag: 2dca46e6-1590-42f8-9cd4-79058d249391
+
+	measure 'Valeur du Stock' = SUMX(Produit, Produit[QuantiteEnStock] * Produit[PrixUnitaire])
+		lineageTag: 48033017-a327-4a8e-b7be-25bd2447b87f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nb Produits' = DISTINCTCOUNT(Produit[ProduitId])
+		formatString: 0
+		lineageTag: 7a8d93ab-6417-4df2-9782-aabcb8a79662
+
+	measure 'Prix Moyen' = AVERAGE(Produit[PrixUnitaire])
+		lineageTag: c9ef9133-03f3-40a9-9db1-0e9f9d0eaf98
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nb Employes' = DISTINCTCOUNT(Employe[EmployeId])
+		formatString: 0
+		lineageTag: 9e34586f-8371-4f00-8ac3-ef8900932244
+
+	measure 'CA par Employe' = DIVIDE([CA Total], [Nb Employes], 0)
+		lineageTag: df794225-1b1c-4335-b705-06f878420ab3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Salaire Total' = SUM(Employe[SalaireActuel])
+		lineageTag: 952d1cb9-494e-42a2-9fd0-f30d1b45e1a7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Prime Totale' = SUM(Employe[Prime])
+		lineageTag: d1ecdcc4-56f3-42c6-940b-f01a984127b3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nb Transporteurs' = DISTINCTCOUNT(Commande[TransporteurId])
+		formatString: 0
+		lineageTag: cfb646bf-0639-48fa-a353-fe15a87a7850
+
+	measure PaysLivrés = CALCULATE(DISTINCTCOUNT(Client[Pays]),Commande)
+		formatString: 0
+		lineageTag: 05e480bc-5b0a-499f-b24c-e48b0afc0141
+
+	measure 'Coût Moyen' = AVERAGE(Commande[Transport])
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 7483ff89-9ef9-4dd3-9e81-72ee081be24e
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	measure AvgCoutTransportUSA = AVERAGEX(FILTER(Commande,RELATED(Client[Pays])="USA"),Commande[Transport])
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 73b57493-b69b-48cc-b94f-ffd61b019869
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	partition _Mesures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

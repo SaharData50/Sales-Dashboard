@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "09af6a0d4cfb30abed0b",
+  "displayName": "Livraison Transport",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

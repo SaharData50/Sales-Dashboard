@@ -1,0 +1,73 @@
+table LigneCommandes
+	lineageTag: 2a3c0435-b6f5-409d-bfc3-c3245bd54947
+
+	column CommandeId
+		dataType: int64
+		formatString: 0
+		lineageTag: a8855cfc-4334-48c7-8ad1-e643131b121d
+		summarizeBy: none
+		sourceColumn: CommandeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProduitId
+		dataType: int64
+		formatString: 0
+		lineageTag: 89fb04b4-d29c-4342-aa90-aaea0ce2094a
+		summarizeBy: none
+		sourceColumn: ProduitId
+
+		annotation SummarizationSetBy = Automatic
+
+	column PrixUnitaire
+		dataType: double
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 857140e9-0d63-4bfc-a86b-364cf23fe2a1
+		summarizeBy: sum
+		sourceColumn: PrixUnitaire
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	column Quantite
+		dataType: int64
+		formatString: 0
+		lineageTag: 31abd1d4-4766-4b63-b405-39757b5cda06
+		summarizeBy: sum
+		sourceColumn: Quantite
+
+		annotation SummarizationSetBy = Automatic
+
+	column Remise
+		dataType: double
+		lineageTag: ad0551bf-566d-40aa-b406-8babae71430d
+		summarizeBy: sum
+		sourceColumn: Remise
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CA = LigneCommandes[PrixUnitaire]*LigneCommandes[Quantite]*(1-LigneCommandes[Remise])
+		lineageTag: 544f03a4-95d4-43ce-9be1-a297786ab6a4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition LigneCommandes = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(".\SQLEXPRESS", "Ventes"),
+				    dbo_LigneCommandes = Source{[Schema="dbo",Item="LigneCommandes"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(dbo_LigneCommandes,{{"PrixUnitaire", type number}, {"Quantite", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

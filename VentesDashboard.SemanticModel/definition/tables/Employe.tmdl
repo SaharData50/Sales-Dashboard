@@ -1,0 +1,217 @@
+table Employe
+	lineageTag: ede9b571-4b04-4ff2-ae6b-751c6f713621
+
+	column EmployeId
+		dataType: int64
+		formatString: 0
+		lineageTag: b221c6bd-ffff-49b0-a0d5-5546e81f003d
+		summarizeBy: none
+		sourceColumn: EmployeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nom
+		dataType: string
+		lineageTag: 26c9fc34-85af-4b4a-9577-7e5770906a80
+		summarizeBy: none
+		sourceColumn: Nom
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prenom
+		dataType: string
+		lineageTag: 37156990-0d83-49d5-b65f-b25a250d3d82
+		summarizeBy: none
+		sourceColumn: Prenom
+
+		annotation SummarizationSetBy = Automatic
+
+	column Titre
+		dataType: string
+		lineageTag: 1f77fbe1-b420-4cd8-8ff9-bfc3efb088a2
+		summarizeBy: none
+		sourceColumn: Titre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Civilite
+		dataType: string
+		lineageTag: a5fa387a-cae5-43f9-8716-6879bae810d0
+		summarizeBy: none
+		sourceColumn: Civilite
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sexe
+		dataType: string
+		lineageTag: 8a9c9200-4f5f-4866-ae8d-efe20746d6d1
+		summarizeBy: none
+		sourceColumn: Sexe
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateNaissance
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: fb45111e-2b91-4843-8bae-2c26bde9c8ee
+		summarizeBy: none
+		sourceColumn: DateNaissance
+
+		variation Variation
+			isDefault
+			relationship: 07571492-6aeb-42a2-8f92-d95649590148
+			defaultHierarchy: LocalDateTable_407e5bc8-3978-4805-ac87-4688e2cb1bf4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateEmbauche
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 202d9ef5-afc2-4d66-9db5-7c2fa697c1d6
+		summarizeBy: none
+		sourceColumn: DateEmbauche
+
+		variation Variation
+			isDefault
+			relationship: 993e36ca-ef35-49d5-be64-a5a56d6a44e5
+			defaultHierarchy: LocalDateTable_cc2076a3-6fb4-46bd-8652-be1c15906305.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Adresse
+		dataType: string
+		lineageTag: bb4537f7-d725-4d54-99fd-703da3423992
+		summarizeBy: none
+		sourceColumn: Adresse
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ville
+		dataType: string
+		lineageTag: 4ebae4e4-b1bc-4284-b3d7-4c3dc9a4c9c5
+		summarizeBy: none
+		sourceColumn: Ville
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: dfa6e801-2c28-4d64-a211-0423e311a97d
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column CodePostal
+		dataType: string
+		lineageTag: 491c464b-9bf7-4d3e-874a-c493db8a0847
+		summarizeBy: none
+		sourceColumn: CodePostal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pays
+		dataType: string
+		lineageTag: 64e13e0b-236f-42eb-9094-d7ccb1ae71a1
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	column TelephonePersonnel
+		dataType: string
+		lineageTag: 575374e1-f0d1-47a0-a38a-ced1889d1e04
+		summarizeBy: none
+		sourceColumn: TelephonePersonnel
+
+		annotation SummarizationSetBy = Automatic
+
+	column Extension
+		dataType: string
+		lineageTag: 4f7a86be-8c74-4c52-9316-b0be9f12f313
+		summarizeBy: none
+		sourceColumn: Extension
+
+		annotation SummarizationSetBy = Automatic
+
+	column DependDe
+		dataType: int64
+		formatString: 0
+		lineageTag: 93151704-f87f-40dc-9d6e-1c6440f6bbfa
+		summarizeBy: sum
+		sourceColumn: DependDe
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalaireActuel
+		dataType: double
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 963bc439-5a76-4149-8809-e53daaa8b68b
+		summarizeBy: sum
+		sourceColumn: SalaireActuel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	column Prime
+		dataType: double
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: 9f7f043e-49e7-4635-82b1-4cfae34b9a21
+		summarizeBy: sum
+		sourceColumn: Prime
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	column DivisionId
+		dataType: int64
+		formatString: 0
+		lineageTag: a22e18f6-368f-4c70-ad2c-2149b70afa31
+		summarizeBy: count
+		sourceColumn: DivisionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ServiceId
+		dataType: int64
+		formatString: 0
+		lineageTag: df11f380-f09d-4cd9-8c30-ced2a6e0b92f
+		summarizeBy: count
+		sourceColumn: ServiceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nom complet employé'
+		dataType: string
+		lineageTag: a6e72ce7-06ef-4f93-8f40-0a2f08b2b6fb
+		summarizeBy: none
+		sourceColumn: Nom complet employé
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Adresse complète'
+		dataType: string
+		lineageTag: afa0a612-4aa2-4e83-a7ae-825fdb7e3547
+		summarizeBy: none
+		sourceColumn: Adresse complète
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Employe = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(".\SQLEXPRESS", "Ventes"),
+				    dbo_Employe = Source{[Schema="dbo",Item="Employe"]}[Data],
+				    #"Inserted Merged Column" = Table.AddColumn(dbo_Employe, "Nom complet employé", each Text.Combine({[Prenom], [Nom]}, " "), type text),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Inserted Merged Column",{{"SalaireActuel", type number}, {"Prime", type number}}),
+				    #"Inserted Merged Column1" = Table.AddColumn(#"Changed Type", "Adresse complète", each Text.Combine({[Adresse], [Ville], [CodePostal], [Pays]}, ","), type text)
+				in
+				    #"Inserted Merged Column1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

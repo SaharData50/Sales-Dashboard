@@ -1,0 +1,65 @@
+relationship 07571492-6aeb-42a2-8f92-d95649590148
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Employe.DateNaissance
+	toColumn: LocalDateTable_407e5bc8-3978-4805-ac87-4688e2cb1bf4.Date
+
+relationship 993e36ca-ef35-49d5-be64-a5a56d6a44e5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Employe.DateEmbauche
+	toColumn: LocalDateTable_cc2076a3-6fb4-46bd-8652-be1c15906305.Date
+
+relationship 8fe46e60-4074-499f-9492-7d6e908c3870
+	fromColumn: Commande.ClientId
+	toColumn: Client.ClientId
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9f05e744-1f51-45e3-9b7b-93e1350b35b5
+	fromColumn: Commande.EmployeId
+	toColumn: Employe.EmployeId
+
+	annotation PBI_IsFromSource = FS
+
+relationship eb61a6f1-8bc2-474e-a418-64509d8b6abb
+	fromColumn: LigneCommandes.CommandeId
+	toColumn: Commande.CommandeId
+
+	annotation PBI_IsFromSource = FS
+
+relationship b5138318-712b-4e3d-8c8c-2e720f54a087
+	fromColumn: LigneCommandes.ProduitId
+	toColumn: Produit.ProduitId
+
+	annotation PBI_IsFromSource = FS
+
+relationship 28c321f1-5c6a-47ed-b6cb-c8d638bb074e
+	fromColumn: Produit.CategorieId
+	toColumn: Categorie.CategorieId
+
+	annotation PBI_IsFromSource = FS
+
+relationship 4792bb5a-c42e-49c7-af59-bc697e397223
+	fromColumn: Produit.FournisseurId
+	toColumn: Fournisseur.FournisseurId
+
+	annotation PBI_IsFromSource = FS
+
+relationship 79b7fd44-50f6-f6fe-c7f3-e8917dad93c4
+	fromColumn: Commande.DateCommande
+	toColumn: Calendrier.Date
+
+relationship e57d0f6a-1ca0-3dc4-c8dc-59e628e5ccd9
+	isActive: false
+	fromColumn: Commande.DateExpedition
+	toColumn: Calendrier.Date
+
+relationship 5a82f16b-6dfb-4883-1f53-8f19755d31c9
+	isActive: false
+	fromColumn: Commande.DateDemandee
+	toColumn: Calendrier.Date
+
+relationship 7bea203b-14d4-8809-5990-bc03336a616d
+	toCardinality: many
+	fromColumn: Client.Pays
+	toColumn: securityTable_sales.Pays
+

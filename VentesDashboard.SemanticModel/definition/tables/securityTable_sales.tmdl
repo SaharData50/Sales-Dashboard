@@ -1,0 +1,35 @@
+table securityTable_sales
+	lineageTag: 164b335c-1ec9-4a09-a382-8dd4c57a4879
+
+	column user_name
+		dataType: string
+		lineageTag: 05e62664-92b8-42d5-89c7-402f70f0c24e
+		summarizeBy: none
+		sourceColumn: user_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pays
+		dataType: string
+		lineageTag: c3a9f3d7-e799-4410-b044-5d6b94a1c57a
+		dataCategory: County
+		summarizeBy: none
+		sourceColumn: Pays
+
+		annotation SummarizationSetBy = Automatic
+
+	partition securityTable_sales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Sahar\Desktop\securityTable_sales.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Changed Type", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"user_name", type text}, {"Pays", type text}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

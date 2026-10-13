@@ -1,0 +1,119 @@
+table Commande
+	lineageTag: e38d9782-4797-4df3-a325-6902b457e7cb
+
+	measure %Commande7jours =
+			DIVIDE(
+			    CALCULATE( DISTINCTCOUNT(Commande[CommandeId]),FILTER(Commande,Commande[DelaiExpedition]<7)),
+			    CALCULATE(DISTINCTCOUNT(Commande[CommandeId]),REMOVEFILTERS()),0
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 6d5f64ba-bf53-48af-ac66-083aae0c82da
+
+	measure %Commande =
+			DIVIDE(
+			    CALCULATE( DISTINCTCOUNT(Commande[CommandeId])),
+			    CALCULATE(DISTINCTCOUNT(Commande[CommandeId]),REMOVEFILTERS()),0
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: a52b0fdb-ad70-458a-9e32-a519f3749ee8
+
+	column CommandeId
+		dataType: int64
+		formatString: 0
+		lineageTag: c2345b36-a0b0-471c-88c8-12793933afa3
+		summarizeBy: none
+		sourceColumn: CommandeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ClientId
+		dataType: string
+		lineageTag: 864e8b67-15bb-48a7-aa7a-903bc89ecaed
+		summarizeBy: none
+		sourceColumn: ClientId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeId
+		dataType: int64
+		formatString: 0
+		lineageTag: c1f3739e-068d-4850-8dba-30fb03ccaccf
+		summarizeBy: none
+		sourceColumn: EmployeId
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateCommande
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 601fdb60-77ab-4361-978b-1a8189c84510
+		summarizeBy: none
+		sourceColumn: DateCommande
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateDemandee
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: be1a7140-50eb-40e8-af33-d37c1af8d1e8
+		summarizeBy: none
+		sourceColumn: DateDemandee
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateExpedition
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4178c0cb-e672-496d-a81a-452c8a1d38f3
+		summarizeBy: none
+		sourceColumn: DateExpedition
+
+		annotation SummarizationSetBy = Automatic
+
+	column TransporteurId
+		dataType: int64
+		formatString: 0
+		lineageTag: fdbea12e-bea9-4d44-987c-f3282194a00d
+		summarizeBy: count
+		sourceColumn: TransporteurId
+
+		annotation SummarizationSetBy = Automatic
+
+	column Transport
+		dataType: decimal
+		formatString: #,0.###############\ "€";-#,0.###############\ "€";#,0.###############\ "€"
+		lineageTag: ba43d831-1687-4dfe-9652-a056b1b3ae79
+		summarizeBy: sum
+		sourceColumn: Transport
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"fr-FR"}
+
+	column DelaiExpedition = DATEDIFF(Commande[DateCommande],Commande[DateExpedition],DAY)
+		formatString: 0
+		lineageTag: c77743bf-e9b4-4176-b890-d31afedbf33f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DelaiLivraison = INT(Commande[DateDemandee]-Commande[DateExpedition])
+		formatString: 0
+		lineageTag: 6c8d78b2-cf7c-486e-8985-e3dafdb9f6f6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Commande = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database(".\SQLEXPRESS", "Ventes"),
+				    dbo_Commande = Source{[Schema="dbo",Item="Commande"]}[Data]
+				in
+				    dbo_Commande
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
